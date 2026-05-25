@@ -53,3 +53,14 @@ resource "aws_subnet" "private_subnet_2" {
     Name = "private_subnet_1"
   }
 }
+
+# ====================================================================
+# 4. Create Internet Gatway
+# ====================================================================
+
+resource "aws_internet_gateway" "main_igw" {
+  vpc_id = aws_vpc.main_vpc.id
+  tags = {
+    Name = "main_igw"
+  }
+}
