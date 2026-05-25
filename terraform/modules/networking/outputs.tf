@@ -20,7 +20,7 @@ output "public_subnets_ids" {
 }
 
 # ====================================================================
-# 2. Private Subnets ID 
+# 3. Private Subnets ID 
 # ====================================================================
 
 output "private_subnets_ids" {
