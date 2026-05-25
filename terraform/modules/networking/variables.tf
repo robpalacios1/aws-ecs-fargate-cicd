@@ -1,5 +1,5 @@
 # ====================================================================
-# 1. Variables VPC
+# 1. VPC variables
 # ====================================================================
 
 variable "main_vpc_cidr_block" {
@@ -18,4 +18,44 @@ variable "main_vpc_environment" {
   description = "VPC Environment"
   type = string
   default = "dev"
+}
+
+# ====================================================================
+# 2. Public Subnets Variables
+# ====================================================================
+
+variable "public_subnet_1_cidr_block" {
+  description = "The CIDR Block for public subnet 1"
+  type = string
+  default = "10.0.1.0/24"
+}
+
+variable "public_subnet_1_az1a" {
+  description = "The availability zone for public subnet 1"
+  type = string
+  default = "us-east-1a"
+}
+
+variable "public_subnet_1_name" {
+  description = "The public subnet 1 name"
+  type = string
+  default = "public-subnet-1"
+}
+
+variable "public_subnet_2_cidr_block" {
+  description = "The CIDR Block for public subnet 2"
+  type = string
+  default = "10.0.2.0/24"
+}
+
+variable "public_subnet_2_az1b" {
+  description = "The availability zone for public subnet 2"
+  type = string
+  default = "us-east-1b"
+}
+
+variable "public_subnet_2_name" {
+  description = "The public subnet 2 name"
+  type = string
+  default = "public-subnet-2"
 }
