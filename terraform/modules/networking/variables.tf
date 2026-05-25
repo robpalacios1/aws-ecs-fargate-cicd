@@ -99,3 +99,13 @@ variable "private_subnet_2_name" {
   type = string
   default = "private-subnet-2"
 }
+
+# ====================================================================
+# 4. Internet Gateway (IGW) Variables
+# ====================================================================
+
+variable "main_igw_name" {
+  description = "The IGW name"
+  type = string
+  default = "main_igw"
+}
