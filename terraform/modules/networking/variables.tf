@@ -125,3 +125,19 @@ variable "nat_eip_az2_name" {
   type = string
   default = "nat-eip-az2"
 }
+
+# ====================================================================
+# 6. NAT Gateway Variables
+# ====================================================================
+
+variable "nat_gw_az1_name" {
+  description = "Name of NAT Gateway in availability zone 1"
+  type = string
+  default = "nat-gw-az1"
+}
+
+variable "nat_gw_az2_name" {
+  description = "Name of NAT Gateway in availability zone 2"
+  type = string
+  default = "nat-gw-az2"
+}
