@@ -59,3 +59,43 @@ variable "public_subnet_2_name" {
   type = string
   default = "public-subnet-2"
 }
+
+# ====================================================================
+# 3. Private Subnets Variables
+# ====================================================================
+
+variable "private_subnet_1_cidr_block" {
+  description = "The CIDR Block for private subnet 1"
+  type = string
+  default = "10.0.3.0/24"
+}
+
+variable "private_subnet_1_az1a" {
+  description = "The availability zone for private subnet 1"
+  type = string
+  default = "us-east-1a"
+}
+
+variable "private_subnet_1_name" {
+  description = "The private subnet 1 name"
+  type = string
+  default = "private-subnet-1"
+}
+
+variable "private_subnet_2_cidr_block" {
+  description = "The CIDR Block for private subnet 2"
+  type = string
+  default = "10.0.4.0/24"
+}
+
+variable "private_subnet_2_az1b" {
+  description = "The availability zone for private subnet 2"
+  type = string
+  default = "us-east-1b"
+}
+
+variable "private_subnet_2_name" {
+  description = "The private subnet 2 name"
+  type = string
+  default = "private-subnet-2"
+}
