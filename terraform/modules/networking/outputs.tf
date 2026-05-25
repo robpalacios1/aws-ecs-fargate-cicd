@@ -14,7 +14,19 @@ output "vpc_id" {
 output "public_subnets_ids" {
   description = "List of ID's Public Subnets"
   value = [
-    aws_subnet.public_subnet_1.id,
+    aws_subnet.public_subnet_.id,
     aws_subnet.public_subnet_2.id
+  ]
+}
+
+# ====================================================================
+# 2. Private Subnets ID 
+# ====================================================================
+
+output "private_subnets_ids" {
+  description = "List of ID's Private Subnets"
+  value = [
+    aws_subnet.private_subnet_1.id,
+    aws_subnet.private_subnet_2.id
   ]
 }
