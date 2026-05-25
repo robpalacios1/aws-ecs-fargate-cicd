@@ -141,3 +141,19 @@ variable "nat_gw_az2_name" {
   type = string
   default = "nat-gw-az2"
 }
+
+# ====================================================================
+# 7. Route Tables Variables
+# ====================================================================
+
+variable "public_rt_name" {
+  description = "Public Route Table Name"
+  type = string
+  default = "public-rt"
+}
+
+variable "private_rt_name" {
+  description = "Private Route Table Name"
+  type = string
+  default = "private-rt"
+}
