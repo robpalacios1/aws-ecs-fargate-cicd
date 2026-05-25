@@ -1,0 +1,55 @@
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files, which are likely to contain sensitive data, such as
+# password, private keys, and other secrets. These should not be part of version 
+# control as they are data points, are unstable and contain secrets.
+*.tfvars
+*.tfvars.json
+
+# Ignore override files as they are local-only overrides
+*override.tf
+*override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Include override files you do wish to add to version control inside developer directories
+# !developer_overrides.tf
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# --- General / IDE ---
+# Windows thumbnail database files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Directory system files (e.g. OSX)
+.DS_Store
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Log files
+*.log
+
+# Env / Secrets
+.env
+.env.*
+secret.tfvars
