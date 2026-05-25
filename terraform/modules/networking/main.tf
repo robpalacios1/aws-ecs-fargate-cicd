@@ -3,7 +3,9 @@
 # ====================================================================
 
 resource "aws_vpc" "main_vpc" {
-  cidr_block = var.main_vpc_cidr_block
+  cidr_block           = var.main_vpc_cidr_block
+  enable_dns_hostnames = true
+  enable_dns_support   = true
   tags = {
     Name        = var.main_vpc_name
     environment = var.main_vpc_environment
@@ -117,16 +119,42 @@ resource "aws_nat_gateway" "nat_gw_az2" {
 
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main_vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.main_igw.id
+  }
+
   tags = {
     Name        = var.public_rt_name
     environment = var.main_vpc_environment
   }
 }
 
-resource "aws_route_table" "private_rt" {
+resource "aws_route_table" "private_rt_az1" {
   vpc_id = aws_vpc.main_vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_gw_az1.id
+  }
+
   tags = {
-    Name        = var.private_rt_name
+    Name        = var.private_rt_az1_name
+    environment = var.main_vpc_environment
+  }
+}
+
+resource "aws_route_table" "private_rt_az2" {
+  vpc_id = aws_vpc.main_vpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat_gw_az2.id
+  }
+
+  tags = {
+    Name        = var.private_rt_az2_name
     environment = var.main_vpc_environment
   }
 }
@@ -147,10 +175,10 @@ resource "aws_route_table_association" "public_rta_2" {
 
 resource "aws_route_table_association" "private_rta_1" {
   subnet_id      = aws_subnet.private_subnet_1.id
-  route_table_id = aws_route_table.private_rt.id
+  route_table_id = aws_route_table.private_rt_az1.id
 }
 
 resource "aws_route_table_association" "private_rta_2" {
   subnet_id      = aws_subnet.private_subnet_2.id
-  route_table_id = aws_route_table.private_rt.id
+  route_table_id = aws_route_table.private_rt_az2.id
 }
