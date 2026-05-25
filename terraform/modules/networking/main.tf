@@ -3,10 +3,10 @@
 # ====================================================================
 
 resource "aws_vpc" "main_vpc" {
-  cidr_block = "10.0.0.0/16"
+  cidr_block = var.main_vpc_cidr_block
   tags = {
-    Name = "development"
-    environment = "dev"
+    Name = var.main_vpc_name
+    environment = var.main_vpc_environment
   }
 }
 
@@ -16,19 +16,19 @@ resource "aws_vpc" "main_vpc" {
 
 resource "aws_subnet" "public_subnet_1" {
   vpc_id = aws_vpc.main_vpc.id
-  cidr_block = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block = var.public_subnet_1_cidr_block
+  availability_zone = var.public_subnet_1_az1a
   tags = {
-    Name = "public_subnet_1"
+    Name = var.public_subnet_1_name
   }
 }
 
 resource "aws_subnet" "public_subnet_2" {
   vpc_id = aws_vpc.main_vpc.id
-  cidr_block = "10.0.2.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block = var.public_subnet_2_cidr_block
+  availability_zone = var.public_subnet_2_az1b
   tags = {
-    Name = "public_subnet_2"
+    Name = var.public_subnet_2_name
   }
 }
 
@@ -38,19 +38,19 @@ resource "aws_subnet" "public_subnet_2" {
 
 resource "aws_subnet" "private_subnet_1" {
   vpc_id = aws_vpc.main_vpc.id
-  cidr_block = "10.0.3.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block = var.private_subnet_1_cidr_block
+  availability_zone = var.private_subnet_1_az1a
   tags = {
-    Name = "private_subnet_1"
+    Name = var.private_subnet_1_name
   }
 }
 
 resource "aws_subnet" "private_subnet_2" {
   vpc_id = aws_vpc.main_vpc.id
-  cidr_block = "10.0.4.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block = var.private_subnet_2_cidr_block
+  availability_zone = var.private_subnet_2_az1b
   tags = {
-    Name = "private_subnet_1"
+    Name = var.private_subnet_2_name
   }
 }
 
@@ -61,7 +61,7 @@ resource "aws_subnet" "private_subnet_2" {
 resource "aws_internet_gateway" "main_igw" {
   vpc_id = aws_vpc.main_vpc.id
   tags = {
-    Name = "main_igw"
+    Name = var.main_igw_name
   }
 }
 
@@ -72,8 +72,8 @@ resource "aws_internet_gateway" "main_igw" {
 resource "aws_eip" "nat_eip_az1" {
   domain = "vpc"
   tags = {
-    Name = "nat-eip-az1"
-    environment = "development"
+    Name = nat_eip_az1_name
+    environment = var.main_vpc_environment
   }
   depends_on = [ aws_internet_gateway.main_igw ]
 }
@@ -81,8 +81,8 @@ resource "aws_eip" "nat_eip_az1" {
 resource "aws_eip" "nat_eip_az2" {
   domain = "vpc"
   tags = {
-    Name = "nat-eip-az2"
-    environment = "development"
+    Name = nat_eip_az2_name
+    environment = var.main_vpc_environment
   }
   depends_on = [ aws_internet_gateway.main_igw ]
 }
@@ -95,8 +95,8 @@ resource "aws_nat_gateway" "nat_gw_az1" {
   allocation_id = aws_eip.nat_eip_az1.id
   subnet_id = aws_subnet.public_subnet_1.id
   tags = {
-    Name = "nat-gw-az1"
-    environment = "development"
+    Name = var.nat_gw_az1_name
+    environment = var.main_vpc_environment 
   }
   depends_on = [ aws_internet_gateway.main_igw ]
 }
@@ -105,8 +105,8 @@ resource "aws_nat_gateway" "nat_gw_az2" {
   allocation_id = aws_eip.nat_eip_az2.id
   subnet_id = aws_subnet.public_subnet_2.id
   tags = {
-    Name = "nat-gw-az2"
-    environment = "development"
+    Name = var.nat_gw_az2_name
+    environment = var.main_vpc_environment
   }
   depends_on = [ aws_internet_gateway.main_igw ]
 }
@@ -118,16 +118,16 @@ resource "aws_nat_gateway" "nat_gw_az2" {
 resource "aws_route_table" "public_rt" {
   vpc_id = aws_vpc.main_vpc.id
   tags = {
-    Name = "public-rt"
-    environment = "development"
+    Name = var.public_rt_name
+    environment = var.main_vpc_environment
   } 
 }
 
 resource "aws_route_table" "private_rt" {
   vpc_id = aws_vpc.main_vpc.id
   tags = {
-    Name = "private-rt"
-    environment = "development"
+    Name = var.private_rt_name
+    environment = var.main_vpc_environment
   }
 }
 
