@@ -152,8 +152,14 @@ variable "public_rt_name" {
   default     = "public-rt"
 }
 
-variable "private_rt_name" {
-  description = "Private Route Table Name"
+variable "private_rt_az1_name" {
+  description = "Private Route Table Name AZ1"
   type        = string
-  default     = "private-rt"
+  default     = "private-rt-az1"
+}
+
+variable "private_rt_az2_name" {
+  description = "Private Route Table Name AZ2"
+  type        = string
+  default     = "private-rt-az2"
 }
