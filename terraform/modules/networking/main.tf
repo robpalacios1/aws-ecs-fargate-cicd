@@ -72,7 +72,7 @@ resource "aws_internet_gateway" "main_igw" {
 resource "aws_eip" "nat_eip_az1" {
   domain = "vpc"
   tags = {
-    Name        = nat_eip_az1_name
+    Name        = var.nat_eip_az1_name
     environment = var.main_vpc_environment
   }
   depends_on = [aws_internet_gateway.main_igw]
