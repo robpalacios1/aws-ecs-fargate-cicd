@@ -88,7 +88,7 @@ resource "aws_eip" "nat_eip_az2" {
 }
 
 # ====================================================================
-# 5. Create NAT Gateway
+# 6. Create NAT Gateway
 # ====================================================================
 
 resource "aws_nat_gateway" "nat_gw_az1" {
@@ -112,7 +112,7 @@ resource "aws_nat_gateway" "nat_gw_az2" {
 }
 
 # ====================================================================
-# 5. Create Route Table
+# 7. Create Route Table
 # ====================================================================
 
 resource "aws_route_table" "public_rt" {
@@ -132,7 +132,7 @@ resource "aws_route_table" "private_rt" {
 }
 
 # ====================================================================
-# 5. Create Route Table Association
+# 8. Create Route Table Association
 # ====================================================================
 
 resource "aws_route_table_association" "public_rta_1" {
