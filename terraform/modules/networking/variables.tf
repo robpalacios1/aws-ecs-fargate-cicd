@@ -109,3 +109,19 @@ variable "main_igw_name" {
   type = string
   default = "main_igw"
 }
+
+# ====================================================================
+# 5. Elastic IP's Variables
+# ====================================================================
+
+variable "nat_eip_az1_name" {
+  description = "The Elastic IP in AZ1"
+  type = string
+  default = "nat-eip-az1"
+}
+
+variable "nat_eip_az2_name" {
+  description = "The Elastic IP in AZ2"
+  type = string
+  default = "nat-eip-az2"
+}
