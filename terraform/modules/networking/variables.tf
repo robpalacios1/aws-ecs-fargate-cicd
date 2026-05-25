@@ -4,20 +4,20 @@
 
 variable "main_vpc_cidr_block" {
   description = "The CIDR block for VPC"
-  type = string
-  default = "10.0.0.0/16"
+  type        = string
+  default     = "10.0.0.0/16"
 }
 
 variable "main_vpc_name" {
   description = "VPC Name"
-  type = string
-  default = "development"
+  type        = string
+  default     = "development"
 }
 
 variable "main_vpc_environment" {
   description = "VPC Environment"
-  type = string
-  default = "dev"
+  type        = string
+  default     = "dev"
 }
 
 # ====================================================================
@@ -26,38 +26,38 @@ variable "main_vpc_environment" {
 
 variable "public_subnet_1_cidr_block" {
   description = "The CIDR Block for public subnet 1"
-  type = string
-  default = "10.0.1.0/24"
+  type        = string
+  default     = "10.0.1.0/24"
 }
 
 variable "public_subnet_1_az1a" {
   description = "The availability zone for public subnet 1"
-  type = string
-  default = "us-east-1a"
+  type        = string
+  default     = "us-east-1a"
 }
 
 variable "public_subnet_1_name" {
   description = "The public subnet 1 name"
-  type = string
-  default = "public-subnet-1"
+  type        = string
+  default     = "public-subnet-1"
 }
 
 variable "public_subnet_2_cidr_block" {
   description = "The CIDR Block for public subnet 2"
-  type = string
-  default = "10.0.2.0/24"
+  type        = string
+  default     = "10.0.2.0/24"
 }
 
 variable "public_subnet_2_az1b" {
   description = "The availability zone for public subnet 2"
-  type = string
-  default = "us-east-1b"
+  type        = string
+  default     = "us-east-1b"
 }
 
 variable "public_subnet_2_name" {
   description = "The public subnet 2 name"
-  type = string
-  default = "public-subnet-2"
+  type        = string
+  default     = "public-subnet-2"
 }
 
 # ====================================================================
@@ -66,38 +66,38 @@ variable "public_subnet_2_name" {
 
 variable "private_subnet_1_cidr_block" {
   description = "The CIDR Block for private subnet 1"
-  type = string
-  default = "10.0.3.0/24"
+  type        = string
+  default     = "10.0.3.0/24"
 }
 
 variable "private_subnet_1_az1a" {
   description = "The availability zone for private subnet 1"
-  type = string
-  default = "us-east-1a"
+  type        = string
+  default     = "us-east-1a"
 }
 
 variable "private_subnet_1_name" {
   description = "The private subnet 1 name"
-  type = string
-  default = "private-subnet-1"
+  type        = string
+  default     = "private-subnet-1"
 }
 
 variable "private_subnet_2_cidr_block" {
   description = "The CIDR Block for private subnet 2"
-  type = string
-  default = "10.0.4.0/24"
+  type        = string
+  default     = "10.0.4.0/24"
 }
 
 variable "private_subnet_2_az1b" {
   description = "The availability zone for private subnet 2"
-  type = string
-  default = "us-east-1b"
+  type        = string
+  default     = "us-east-1b"
 }
 
 variable "private_subnet_2_name" {
   description = "The private subnet 2 name"
-  type = string
-  default = "private-subnet-2"
+  type        = string
+  default     = "private-subnet-2"
 }
 
 # ====================================================================
@@ -106,8 +106,8 @@ variable "private_subnet_2_name" {
 
 variable "main_igw_name" {
   description = "The IGW name"
-  type = string
-  default = "main_igw"
+  type        = string
+  default     = "main_igw"
 }
 
 # ====================================================================
@@ -116,14 +116,14 @@ variable "main_igw_name" {
 
 variable "nat_eip_az1_name" {
   description = "The Elastic IP in AZ1"
-  type = string
-  default = "nat-eip-az1"
+  type        = string
+  default     = "nat-eip-az1"
 }
 
 variable "nat_eip_az2_name" {
   description = "The Elastic IP in AZ2"
-  type = string
-  default = "nat-eip-az2"
+  type        = string
+  default     = "nat-eip-az2"
 }
 
 # ====================================================================
@@ -132,14 +132,14 @@ variable "nat_eip_az2_name" {
 
 variable "nat_gw_az1_name" {
   description = "Name of NAT Gateway in availability zone 1"
-  type = string
-  default = "nat-gw-az1"
+  type        = string
+  default     = "nat-gw-az1"
 }
 
 variable "nat_gw_az2_name" {
   description = "Name of NAT Gateway in availability zone 2"
-  type = string
-  default = "nat-gw-az2"
+  type        = string
+  default     = "nat-gw-az2"
 }
 
 # ====================================================================
@@ -148,12 +148,12 @@ variable "nat_gw_az2_name" {
 
 variable "public_rt_name" {
   description = "Public Route Table Name"
-  type = string
-  default = "public-rt"
+  type        = string
+  default     = "public-rt"
 }
 
 variable "private_rt_name" {
   description = "Private Route Table Name"
-  type = string
-  default = "private-rt"
+  type        = string
+  default     = "private-rt"
 }
