@@ -35,6 +35,18 @@ module "networking" {
   nat_gw_az2_name = "nat-gw-az2"
 
   # ROUTE TABLE
-  public_rt_name  = "public-rt"
-  private_rt_name = "private-rt"
+  public_rt_name      = "public-rt"
+  private_rt_az1_name = "private-rt-az1"
+  private_rt_az2_name = "private-rt-az2"
+}
+
+# ====================================================================
+# 2. Security Module (IAM & Security Groups)
+# ====================================================================
+
+module "security" {
+  source = "../../modules/security"
+
+  # Connect the security module with the VPC created in the networking module
+  vpc_id = module.networking.vpc_id
 }
