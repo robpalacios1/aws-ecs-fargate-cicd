@@ -1,5 +1,5 @@
 # ====================================================================
-# Application Load Balancer (ALB) Resources
+# 1. Application Load Balancer (ALB) Resources
 # ====================================================================
 
 resource "aws_lb" "main_alb" {
@@ -21,7 +21,7 @@ resource "aws_lb" "main_alb" {
 }
 
 # ====================================================================
-# ALB Target Group
+# 2. ALB Target Group
 # ====================================================================
 
 resource "aws_lb_target_group" "main_tg" {
