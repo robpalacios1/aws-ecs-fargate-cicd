@@ -41,10 +41,10 @@ output "ecs_task_role_arn" {
 
 output "alb_security_group_id" {
   description = "The ID of the ALB security group"
-  value       = module.security.alb_security_group_id
+  value       = module.security.alb_sg_id
 }
 
 output "ecs_tasks_security_group_id" {
   description = "The ID of the ECS tasks security group"
-  value       = module.security.ecs_tasks_security_group_id
+  value       = module.security.ecs_task_sg_id
 }
