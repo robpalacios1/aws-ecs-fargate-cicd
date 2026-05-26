@@ -13,7 +13,7 @@ resource "aws_iam_role" "ecs_task_execution_role" {
             Action = "sts:AssumeRole"
             Effect = "Allow"
             Principal = {
-                Service = "ecs-tasks.amazonws.com"
+                Service = "ecs-tasks.amazonaws.com"
             }
         }
     ]
@@ -42,7 +42,7 @@ resource "aws_iam_role" "ecs_task_role" {
             Action = "sts:AssumeRole"
             Effect = "Allow"
             Principal = {
-                Service = "ecs-task.amazonaws.com"
+                Service = "ecs-tasks.amazonaws.com"
             }
         }
     ]
