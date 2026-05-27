@@ -27,4 +27,14 @@ resource "aws_ecs_cluster" "main_cluster" {
     }
 }
 
-
+# ====================================================================
+# 3. CloudWatch Log Group (For storing container logs)
+# ====================================================================
+resource "aws_cloudwatch_log_group" "ecs_logs" {
+    name = "/ecs/dev-app-task"
+    retention_in_days = 7
+    tags = {
+        Name = "ecs-logs-group"
+        environment = "dev"
+    }
+}
