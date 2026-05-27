@@ -38,3 +38,47 @@ resource "aws_cloudwatch_log_group" "ecs_logs" {
         environment = "dev"
     }
 }
+
+# ====================================================================
+# 4. ECS Task Definition (Blueprint for running containers) 
+# ====================================================================
+
+resource "aws_ecs_task_definition" "app_task_def" {
+    family = "dev-app-task-def"
+    network_mode = "awsvpc"
+    requires_compatibilities = ["FARGATE"]
+    cpu = "256"
+    memory = "512"
+
+    # IAM Roles - placeholder values, will be updated in IAM module outputs
+    execution_role_arn = "arn:aws:iam::123456789012:role/dev-ecs-task-execution-role"
+    task_role_arn = "arn:aws:iam::123456789012:role/dev-ecs-task-role"
+    
+    # Container Definition
+    container_definitions = jsonencode([
+        {
+            name = "dev-app-container"
+            image = "123456789012.dkr.ecr.us-east-1.amazonaws.com/dev-app-repo:latest" 
+            memory = 512
+            cpu = 256
+            essential = true
+
+            portMappings = [
+                {
+                    containerPort = 80
+                    hostPort = 80
+                    protocol = "tcp"
+                }
+            ]
+        
+            logConfiguration = {
+                logDriver = "awslogs"
+                options = {
+                    "awslogs-group" = "/ecs/dev-app-task"
+                    "awslogs-region" = "us-east-1"
+                    "awslogs-stream-prefix" = "ecs"
+                }
+            }
+        }
+    ])
+}
