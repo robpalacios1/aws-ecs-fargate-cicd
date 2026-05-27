@@ -57,3 +57,12 @@ output "alb_dns_name" {
   description = "The DNS Name of the ALB"
   value       = module.alb.alb_dns_name
 }
+
+# ====================================================================
+# 6. ECR Module Outputs
+# ====================================================================
+
+output "ecr_repository_url" {
+  description = "URL del repositorio ECR"
+  value       = module.ecs.ecr_repository_url
+}
