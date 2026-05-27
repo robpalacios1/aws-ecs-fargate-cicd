@@ -48,3 +48,12 @@ output "ecs_tasks_security_group_id" {
   description = "The ID of the ECS tasks security group"
   value       = module.security.ecs_task_sg_id
 }
+
+# ====================================================================
+# 5. ALB Module Outputs
+# ====================================================================
+
+output "alb_dns_name" {
+  description = "The DNS Name of the ALB"
+  value       = module.alb.alb_dns_name
+}
