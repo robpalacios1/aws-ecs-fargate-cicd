@@ -3,21 +3,18 @@
 # ====================================================================
 
 resource "aws_lb" "main_alb" {
-    name = "dev-main-alb"
-    internal = false
-    load_balancer_type = "application"
-    security_groups = ["sg-01181e4734b2867e0"]
-    subnets = [
-        "subnet-03ed6924ae3c8c962",
-        "subnet-0c756277348d25821" 
-    ]
+  name               = var.main_alb_name
+  internal           = false
+  load_balancer_type = "application"
+  security_groups    = var.main_alb_security_group_id
+  subnets            = var.main_alb_subnets
 
-    enable_deletion_protection = false
+  enable_deletion_protection = false
 
-    tags = {
-        Name = "dev-main-alb"
-        Environment = "dev"
-    }
+  tags = {
+    Name        = var.main_alb_name
+    environment = var.main_alb_environment
+  }
 }
 
 # ====================================================================
@@ -25,44 +22,45 @@ resource "aws_lb" "main_alb" {
 # ====================================================================
 
 resource "aws_lb_target_group" "main_tg" {
-    name = "dev-ecs-target-group"
-    port = "80"
-    protocol = "HTTP"
-    vpc_id = "vpc-048c78fa53c9e3a99"
-    target_type = "ip"
+  name     = var.main_tg_name
+  port     = var.main_tg_port
+  protocol = "HTTP"
 
-    #Health Checks Config
-    health_check {
-        healthy_threshold = 3
-        unhealthy_threshold = 2
-        timeout = 5
-        interval = 30
-        path = "/"
-        port = "traffic-port"
-        protocol = "HTTP"
-        matcher = "200"
-    } 
-    tags = {
-        Name = "dev-ecs-target-group"
-        environment = "dev"
-    }    
+  vpc_id      = var.vpc_id
+  target_type = "ip"
+
+  #Health Checks Config
+  health_check {
+    healthy_threshold   = 3
+    unhealthy_threshold = 2
+    timeout             = 5
+    interval            = 30
+    path                = "/"
+    port                = "traffic-port"
+    protocol            = "HTTP"
+    matcher             = "200"
+  }
+  tags = {
+    Name        = var.main_tg_name
+    environment = var.main_alb_environment
+  }
 }
 
 # ====================================================================
-# ALB Listener
+# 3. ALB Listener
 # ====================================================================
-    
-resource "aws_lb_listener" "main_listener" {
-    load_balancer_arn = aws_lb.main_alb.arn
-    port = "80"
-    protocol = "HTTP"
 
-    default_action {
-        type = "forward"
-        target_group_arn = aws_lb_target_group.main_tg.arn
-    } 
-    tags = {
-        Name = "dev-main-listener"
-        environment = "dev"
-    }    
+resource "aws_lb_listener" "main_listener" {
+  load_balancer_arn = aws_lb.main_alb.arn
+  port              = var.main_listener_port
+  protocol          = var.main_listener_protocol
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.main_tg.arn
+  }
+  tags = {
+    Name        = var.main_listener_name
+    environment = var.main_alb_environment  
+  }
 }
