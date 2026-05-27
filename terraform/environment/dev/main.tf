@@ -74,3 +74,26 @@ module "alb" {
   main_listener_protocol = "HTTP"
   main_listener_name     = "dev-main-listener"
 }
+
+# ====================================================================
+# 4. ECS & ECR Module 
+# ====================================================================
+
+module "ecs" {
+  source = "../../modules/ecs"
+
+  # 1. IAM & Security Roles
+  task_execution_role_arn = module.security.ecs_task_execution_role_arn
+  task_role_arn           = module.security.ecs_task_role_arn
+
+  # 2. Container & Service Configuration
+  container_image  = "nginx:latest"
+  app_service_name = "dev-app-service"
+
+  # 3. Networking Configuration (ECS Task runs in private subnets)
+  subnets         = module.networking.private_subnets_ids
+  security_groups = [module.security.ecs_task_sg_id]
+
+  # 4. Load Balancer Integration
+  target_group_arn = module.alb.target_group_arn
+}
