@@ -50,3 +50,27 @@ module "security" {
   # Connect the security module with the VPC created in the networking module
   vpc_id = module.networking.vpc_id
 }
+
+# ====================================================================
+# 3. ALB Module
+# ====================================================================
+
+module "alb" {
+  source = "../../modules/alb"
+
+  # 1. Application Load Balancer (ALB)
+  main_alb_name              = "dev-main-alb"
+  main_alb_environment       = "dev"
+  vpc_id                     = module.networking.vpc_id
+  main_alb_security_group_id = [module.security.alb_sg_id]
+  main_alb_subnets           = module.networking.public_subnets_ids
+
+  # 2. Target Group
+  main_tg_name = "dev-ecs-target-group"
+  main_tg_port = "80"
+
+  # 3. ALB Listener
+  main_listener_port     = "80"
+  main_listener_protocol = "HTTP"
+  main_listener_name     = "dev-main-listener"
+}
