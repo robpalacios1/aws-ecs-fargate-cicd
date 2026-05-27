@@ -61,6 +61,6 @@ resource "aws_lb_listener" "main_listener" {
   }
   tags = {
     Name        = var.main_listener_name
-    environment = var.main_alb_environment  
+    environment = var.main_alb_environment
   }
 }

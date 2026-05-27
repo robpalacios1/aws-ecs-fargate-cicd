@@ -9,5 +9,5 @@ output "target_group_arn" {
 
 output "alb_dns_name" {
   description = "The DNS Name of the ALB"
-  value = aws_lb.main_alb.dns_name
+  value       = aws_lb.main_alb.dns_name
 }
