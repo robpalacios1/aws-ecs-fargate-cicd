@@ -16,3 +16,15 @@ resource "aws_ecr_repository" "app_repo" {
     }
 }
 
+# ====================================================================
+# 2. AWS ECS Cluster (Managed container orchestration service)
+# ====================================================================
+resource "aws_ecs_cluster" "main_cluster" {
+    name = "dev-main-cluster"
+    tags = {
+        Name = "ecs-cluster"
+        environment = "dev"
+    }
+}
+
+
