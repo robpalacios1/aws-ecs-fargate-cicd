@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevOps Dashboard - ECS Fargate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-container">
+        <!-- SVG de un Cubo representativo de Contenedores -->
+        <svg viewBox="0 0 24 24">
+          <defs>
+            <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#818cf8" />
+              <stop offset="100%" stop-color="#34d399" />
+            </linearGradient>
+          </defs>
+          <path d="M12 2.2L3.5 7.1v9.8L12 21.8l8.5-4.9V7.1L12 2.2zm0 2.2l6.4 3.7-6.4 3.7-6.4-3.7 6.4-3.7zM5.5 9.3l5.5 3.2v6.3l-5.5-3.2V9.3zm13 3.2l-5.5-3.2v6.3l5.5-3.2V12.5z"/>
+        </svg>
+      </div>
+      <h1>DevOps Pipeline Activo</h1>
+      <p class="subtitle">Infraestructura Automatizada con Terraform y ECS Fargate</p>
+    </header>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">Estado de la Aplicación</div>
+        <div class="card-value">
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span id="app-status">Cargando...</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">Plataforma de Cómputo</div>
+        <div class="card-value" id="app-platform">AWS ECS Fargate</div>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">Región de AWS</div>
+        <div class="card-value" id="app-region">us-east-1</div>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">Tiempo de Actividad (Uptime)</div>
+        <div class="card-value" id="app-uptime">0s</div>
+      </div>
+    </div>
+
+    <div class="footer-text">
+      DevOps Dashboard &bull; Powered by <a href="https://aws.amazon.com/ecs/" target="_blank" rel="noopener noreferrer">AWS ECS Fargate</a> & <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">Terraform</a>
+    </div>
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>
