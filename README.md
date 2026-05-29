@@ -201,3 +201,9 @@ To avoid incurring unwanted charges in AWS, you can destroy all the provisioned 
 ```bash
 terraform destroy --auto-approve
 ```
+
+---
+
+## 👤 Author
+
+* **Roberto Palacios** - [LinkedIn Profile](https://www.linkedin.com/in/robpalacios1/)
