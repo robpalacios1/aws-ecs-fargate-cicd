@@ -63,7 +63,7 @@ jobs:
       # 6. Replace Task Definition with Image URI
       - name: Replace Image URI in Task Definition
         id: render-task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v2
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition.json
           container-name: ${{ env.ECS_CONTAINER_NAME }}
