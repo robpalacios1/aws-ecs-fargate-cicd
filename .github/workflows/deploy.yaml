@@ -9,12 +9,13 @@ on:
     branches:
       - master
       - "feature/*"
-
+    tags:
+      - "v*.*.*" 
 env:
   AWS_REGION: "us-east-1"
   ECR_REPOSITORY: "dev-app-repo"
   ECS_SERVICE: "dev-app-service"
-  ECS_CLUSTER: "dev-main-cluster"       
+  ECS_CLUSTER: "dev-main-cluster"
   ECS_TASK_DEFINITION: "dev-app-task"
   ECS_CONTAINER_NAME: "dev-app-container"
 
@@ -46,22 +47,32 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
+        
         run: |
-          # Compilar el contenedor usando el Dockerfile dentro de la carpeta /app
+          # If the event is a Tag (ej. v1.0.0), we use that tag for ECR. If it is a common push, we use 'latest' or the SHA.
+          if [[ "${{ github.ref }}" == refs/tags/* ]]; then
+            IMAGE_TAG="${{ github.ref_name }}"
+          else
+            IMAGE_TAG="latest"
+          fi
+          
+          # Build
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./app
-          # Subir la imagen a AWS ECR
+          
+          # Push
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          # Guardar el URI de la imagen en los outputs
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-      # 5. Download Task Definition
+      # 5. Download Task Definition (ONLY RUN IF IT IS A VERSION TAG)
+      # This avoids making deployments in intermediate development commits
       - name: Download Task Definition from AWS
+        if: startsWith(github.ref, 'refs/tags/v')
         run: |
           aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
 
-      # 6. Replace Task Definition with Image URI
+      # 6. Replace Task Definition with Image URI (ONLY RUN IF IT IS A VERSION TAG)
       - name: Replace Image URI in Task Definition
+        if: startsWith(github.ref, 'refs/tags/v')
         id: render-task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
@@ -69,8 +80,9 @@ jobs:
           container-name: ${{ env.ECS_CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
-      # 7. Deploy the task definition to ECS Fargate
+      # 7. Deploy the task definition (ONLY RUN IF IT IS A VERSION TAG) 
       - name: Deploy Amazon ECS task definition
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: aws-actions/amazon-ecs-deploy-task-definition@v2
         with:
           task-definition: ${{ steps.render-task-def.outputs.task-definition }}
