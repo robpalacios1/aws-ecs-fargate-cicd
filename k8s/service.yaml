@@ -1,0 +1,19 @@
+# ====================================================================
+# Manifest of Kubernetes Service
+# ====================================================================
+apiVersion: v1
+kind: Service
+metadata:
+    name: devops-dashboard-service
+    namespace: devops
+    labels:
+        app: devops-dashboard
+spec:
+    type: LoadBalancer # It tells that a load balancer is created
+    selector:
+        app: devops-dashboard
+    ports:
+    - protocol: TCP
+      port: 80 # It tells that the load balancer is listening on port 80
+      targetPort: 80 # It tells that the load balancer is sending traffic to port 80
+    
