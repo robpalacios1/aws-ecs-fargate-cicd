@@ -83,6 +83,12 @@ variable "main_nodes_subnets_ids" {
   type        = list(string)
 }
 
+variable "main_nodes_instace_types" {
+  description = "value"
+  type        = string
+  default     = "t3.micro"
+}
+
 variable "main_nodes_desired_size" {
   description = "Desired size of EKS node group"
   type        = number
