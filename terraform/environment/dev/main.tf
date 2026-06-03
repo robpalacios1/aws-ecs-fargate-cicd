@@ -97,3 +97,15 @@ module "ecs" {
   # 4. Load Balancer Integration
   target_group_arn = module.alb.target_group_arn
 }
+
+# ====================================================================
+# 5. EKS Module 
+# ====================================================================
+
+module "eks" {
+  source = "../../modules/eks"
+
+  # 1. Networking configuration for EKS
+  main_eks_subnet_ids    = module.networking.private_subnets_ids
+  main_nodes_subnets_ids = module.networking.private_subnets_ids
+}
