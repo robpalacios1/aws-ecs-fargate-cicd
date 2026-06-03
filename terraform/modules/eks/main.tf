@@ -3,7 +3,7 @@
 # ====================================================================
 
 resource "aws_iam_role" "eks_cluster_role" {
-  name = "dev-eks-cluster-role"
+  name = var.eks_cluster_role_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -18,14 +18,14 @@ resource "aws_iam_role" "eks_cluster_role" {
     ]
   })
   tags = {
-    Name        = "dev-eks-cluster-role"
-    environment = "dev"
+    Name        = var.eks_cluster_role_name
+    environment = var.eks_cluster_role_environment
   }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
   role       = aws_iam_role.eks_cluster_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+  policy_arn = var.eks_cluster_policy_arn
 }
 
 # ====================================================================
@@ -33,7 +33,7 @@ resource "aws_iam_role_policy_attachment" "eks_cluster_policy" {
 # ====================================================================
 
 resource "aws_iam_role" "eks_node_role" {
-  name = "dev-eks-node-role"
+  name = var.eks_node_role_name
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -48,24 +48,24 @@ resource "aws_iam_role" "eks_node_role" {
     ]
   })
   tags = {
-    Name        = "dev-eks-node-role"
-    environment = "dev"
+    Name        = var.eks_node_role_name
+    environment = var.eks_node_role_environment
   }
 }
 
 resource "aws_iam_role_policy_attachment" "eks_worker_node_policy" {
   role       = aws_iam_role.eks_node_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
+  policy_arn = var.eks_worker_node_policy_arn
 }
 
 resource "aws_iam_role_policy_attachment" "eks_cni_policy" {
   role       = aws_iam_role.eks_node_role.name
-  policy_arn = "arn:aws:iam::aws:policy/  AmazonEKS_CNI_Policy"
+  policy_arn = var.eks_cni_policy_arn
 }
 
 resource "aws_iam_role_policy_attachment" "ecr_read_only_policy" {
   role       = aws_iam_role.eks_node_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  policy_arn = var.eks_ecr_read_only_policy_arn
 }
 
 
@@ -74,16 +74,11 @@ resource "aws_iam_role_policy_attachment" "ecr_read_only_policy" {
 # ====================================================================
 
 resource "aws_eks_cluster" "main_eks" {
-  name = "dev-eks"
-  role = aws_iam_role.eks_cluster_role.arn
+  name     = var.main_eks_name
+  role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
-    subnet_ids = [
-      "subnet-0123456789public-1",
-      "subnet-0123456789public-2",
-      "subnet-0123456789private-1",
-      "subnet-0123456789private-2",
-    ]
+    subnet_ids = var.main_eks_subnet_ids
   }
 
   depends_on = [
@@ -96,18 +91,15 @@ resource "aws_eks_cluster" "main_eks" {
 # ====================================================================
 
 resource "aws_eks_node_group" "main_nodes" {
-  cluster_name    = aws_eks_cluster.main.eks.name
-  node_group_name = "dev-eks-nodes"
+  cluster_name    = aws_eks_cluster.main_eks.name
+  node_group_name = var.main_nodes_group_name
   node_role_arn   = aws_iam_role.eks_node_role.arn
 
-  subnet_ids = [
-    "subnet-0123456789private-1",
-    "subnet-0123456789private-2",
-  ]
+  subnet_ids = var.main_nodes_subnets_ids
   scaling_config {
-    desired_size = 2
-    max_size     = 3
-    min_size     = 1
+    desired_size = var.main_nodes_desired_size
+    max_size     = var.main_nodes_max_size
+    min_size     = var.main_nodes_min_size
   }
 
   depends_on = [
@@ -116,7 +108,7 @@ resource "aws_eks_node_group" "main_nodes" {
     aws_iam_role_policy_attachment.ecr_read_only_policy,
   ]
   tags = {
-    Name        = "dev-eks-nodes"
-    environment = "dev"
+    Name        = var.main_node_name
+    environment = var.main_nodes_environment
   }
 }
