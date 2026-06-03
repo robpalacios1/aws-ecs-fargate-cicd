@@ -96,6 +96,8 @@ resource "aws_eks_node_group" "main_nodes" {
   node_role_arn   = aws_iam_role.eks_node_role.arn
 
   subnet_ids = var.main_nodes_subnets_ids
+
+  instance_types = [var.main_nodes_instace_types]
   scaling_config {
     desired_size = var.main_nodes_desired_size
     max_size     = var.main_nodes_max_size
