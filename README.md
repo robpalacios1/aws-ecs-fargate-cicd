@@ -170,7 +170,7 @@ kubectl get service devops-dashboard-service
 
 ## 🔄 Release-Based Continuous Integration & Deployment (CI/CD)
 
-The automation pipeline is built with **GitHub Actions** (`.github/workflows/deploy.yaml`) and triggers automatically on every `push` to the `master` branch (for CI checks) or when tagging a version release `v*.*.*` (for CD production deployments).
+The automation pipeline is built with **GitHub Actions** (`.github/workflows/deploy.yaml`) and triggers automatically on every `push` to `master` branch (for CI checks) or when tagging a version release `v*.*.*` (for CD production deployments).
 
 ### 🔑 GitHub Repository Secrets Configuration:
 Configure the following secrets in your repository settings (**Settings -> Secrets and variables -> Actions -> Secrets**):
