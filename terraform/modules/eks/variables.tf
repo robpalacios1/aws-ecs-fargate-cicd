@@ -63,6 +63,12 @@ variable "main_eks_name" {
   default     = "dev-eks"
 }
 
+variable "main_eks_version" {
+  description = "EKS cluster version"
+  type        = string
+  default     = "1.35"
+}
+
 variable "main_eks_subnet_ids" {
   description = "List of subnet IDs"
   type        = list(string)
@@ -81,6 +87,12 @@ variable "main_nodes_group_name" {
 variable "main_nodes_subnets_ids" {
   description = "List of private subnet IDs"
   type        = list(string)
+}
+
+variable "main_nodes_capacity_type" {
+  description = "value"
+  type        = string
+  default     = "ON_DEMAND"
 }
 
 variable "main_nodes_instace_types" {
