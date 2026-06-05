@@ -22,6 +22,8 @@ resource "aws_subnet" "public_subnet_1" {
   availability_zone = var.public_subnet_1_az1a
   tags = {
     Name = var.public_subnet_1_name
+    "kubernetes.io/role/elb"        = "1" # allow public load balancers
+    "kubernetes.io/cluster/dev-eks" = "shared"
   }
 }
 
@@ -31,6 +33,8 @@ resource "aws_subnet" "public_subnet_2" {
   availability_zone = var.public_subnet_2_az1b
   tags = {
     Name = var.public_subnet_2_name
+    "kubernetes.io/role/elb"        = "1" # allow public load balancers
+    "kubernetes.io/cluster/dev-eks" = "shared"
   }
 }
 
@@ -44,6 +48,8 @@ resource "aws_subnet" "private_subnet_1" {
   availability_zone = var.private_subnet_1_az1a
   tags = {
     Name = var.private_subnet_1_name
+    "kubernetes.io/role/internal-elb" = "1" # allow private load balancers
+    "kubernetes.io/cluster/dev-eks"   = "shared"
   }
 }
 
@@ -53,6 +59,8 @@ resource "aws_subnet" "private_subnet_2" {
   availability_zone = var.private_subnet_2_az1b
   tags = {
     Name = var.private_subnet_2_name
+    "kubernetes.io/role/internal-elb" = "1" # allow private load balancers
+    "kubernetes.io/cluster/dev-eks"   = "shared"
   }
 }
 
