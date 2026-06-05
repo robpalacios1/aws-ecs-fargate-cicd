@@ -75,6 +75,7 @@ resource "aws_iam_role_policy_attachment" "ecr_read_only_policy" {
 
 resource "aws_eks_cluster" "main_eks" {
   name     = var.main_eks_name
+  version  = var.main_eks_version
   role_arn = aws_iam_role.eks_cluster_role.arn
 
   vpc_config {
@@ -97,7 +98,8 @@ resource "aws_eks_node_group" "main_nodes" {
 
   subnet_ids = var.main_nodes_subnets_ids
 
-  instance_types = [var.main_nodes_instace_types]
+  capacity_type = var.main_nodes_capacity_type
+  instance_types  = [var.main_nodes_instace_types]
   scaling_config {
     desired_size = var.main_nodes_desired_size
     max_size     = var.main_nodes_max_size
