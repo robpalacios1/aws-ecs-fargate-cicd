@@ -116,5 +116,5 @@ jobs:
           IMAGE_URI: ${{ steps.build-image.outputs.image }}
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
         run: | 
-            sed -i "s|image:.*|image: $IMAGE_URI|g" ./eks/deployment.yaml
+            sed -i "s|image:.*|image: $IMAGE_URI|g" ./k8s/deployment.yaml
             kubectl apply -f k8s/
