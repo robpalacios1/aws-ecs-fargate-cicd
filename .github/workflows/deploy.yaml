@@ -7,7 +7,7 @@ name: Deploy to Amazon ECS & EKS
 on:
   push:
     branches:
-      - "master"
+      - "feature/*"
     tags:
       - "v*.*.*" 
 env:
@@ -115,6 +115,12 @@ jobs:
         env:
           IMAGE_URI: ${{ steps.build-image.outputs.image }}
           ECR_REPOSITORY: ${{ env.ECR_REPOSITORY }}
-        run: | 
+        run: |
+            # replace the image Tag with the new one
             sed -i "s|image:.*|image: $IMAGE_URI|g" ./k8s/deployment.yaml
+
+            # create the namespace devops if not exists
+            kubectl create namespace devops --dry-run=client -o yaml | kubectl apply -f 
+
+            # deploy the application
             kubectl apply -f k8s/
