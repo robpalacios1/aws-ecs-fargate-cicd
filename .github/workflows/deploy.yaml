@@ -118,4 +118,3 @@ jobs:
         run: | 
             sed -i "s|image:.*|image: $IMAGE_URI|g" ./eks/deployment.yaml
             kubectl apply -f k8s/
-          
